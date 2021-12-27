@@ -1,7 +1,7 @@
 const Gameboard = document.querySelector('.Gameboard');
-const players = document.querySelectorAll('.player');
-const rounds = document.querySelector('.rounds');
-const startingButton = document.querySelector('.start__btn');
+let players = document.querySelectorAll('.player');
+let rounds = document.querySelector('.rounds');
+let startingButton = document.querySelector('.start__btn');
 const playersNames = document.querySelectorAll('.player__name');
 const roundsWon = document.querySelectorAll('.rounds__won');
 const roundsCounter = document.querySelector('.rounds-counter');
@@ -16,7 +16,7 @@ const game = (() => {
     let turn;
     let gameBoard = [];
     let cells;
-    roundsCounter.innerText = counter;
+    roundsCounter.innerText = `Round ${counter} of ${totalRounds}`;
     firstPlayer = Player(players[0].value, 'x');
     secondPlayer = Player(players[1].value, 'o');
     totalRounds = rounds.value;
@@ -34,7 +34,7 @@ const game = (() => {
     if (counter > totalRounds) {
       setTimeout(game.endGame, 100);
     } else {
-      roundsCounter.innerText = counter
+      roundsCounter.innerText = `Round ${counter} of ${totalRounds}`;
       gameBoard = [];
       Gameboard.innerHTML = '';
       let count = 0;
@@ -87,6 +87,13 @@ const game = (() => {
                               <input class="rounds" type="number" placeholder="Rounds quantity">
                               <button class="start__btn" type="button">start</button>
                             </form>`;
+    startingButton = document.querySelector('.start__btn');
+    players = document.querySelectorAll('.player');
+    rounds = document.querySelector('.rounds');
+
+    startingButton.addEventListener('click', () => {
+      if (players[0].value !== '' && players[1].value !== '' && rounds.value !== '' && rounds.value > 0) game.startGame();
+    })
   }
 
   endRound = () => {
